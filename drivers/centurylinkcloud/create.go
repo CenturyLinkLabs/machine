@@ -42,6 +42,12 @@ func getCreateFlags() []cli.Flag {
 			Usage:  "CenturyLink Cloud Source Server ID",
 			Value:  "UBUNTU-14-64-TEMPLATE",
 		},
+		cli.StringFlag{
+			EnvVar: "CENTURYLINKCLOUD_NETWORK_ID",
+			Name:   "centurylinkcloud-network-id",
+			Usage:  "CenturyLink Cloud Network ID",
+			Value:  "",
+		},
 		cli.IntFlag{
 			EnvVar: "CENTURYLINKCLOUD_CPU",
 			Name:   "centurylinkcloud-cpu",
@@ -114,6 +120,7 @@ func (d *Driver) createServer(c *clcgo.Client) (clcgo.Server, error) {
 		CPU:            d.CPU,
 		MemoryGB:       d.MemoryGB,
 		Type:           "standard",
+		NetworkID:      d.NetworkID,
 	}
 
 	st, err := c.SaveEntity(&s)

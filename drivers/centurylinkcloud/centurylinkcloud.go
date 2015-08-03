@@ -26,6 +26,7 @@ type Driver struct {
 	Password           string
 	GroupID            string
 	SourceServerID     string
+	NetworkID          string
 	CPU                int
 	MemoryGB           int
 	PrivateAddressOnly bool
@@ -79,6 +80,7 @@ func (d *Driver) SetConfigFromFlags(flags drivers.DriverOptions) error {
 	d.Password = flags.String("centurylinkcloud-password")
 	d.GroupID = flags.String("centurylinkcloud-group-id")
 	d.SourceServerID = flags.String("centurylinkcloud-source-server-id")
+	d.NetworkID = flags.String("centurylinkcloud-network-id")
 	d.CPU = flags.Int("centurylinkcloud-cpu")
 	d.MemoryGB = flags.Int("centurylinkcloud-memory-gb")
 	d.PrivateAddressOnly = flags.Bool("centurylinkcloud-private-address-only")
