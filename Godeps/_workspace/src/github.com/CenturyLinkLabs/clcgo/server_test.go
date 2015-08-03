@@ -109,6 +109,16 @@ func TestServerRequestForSave(t *testing.T) {
 	assert.Equal(t, "test-network-id", s.NetworkID)
 }
 
+func TestServerRequestForSaveWithNetworkID(t *testing.T) {
+	d := DeployableNetwork{NetworkID: "overwritten"}
+	s := Server{NetworkID: "original", DeployableNetwork: d}
+
+	req, err := s.RequestForSave("AA")
+	assert.Equal(t, s, req.Parameters)
+	assert.NoError(t, err)
+	assert.Equal(t, "original", s.NetworkID)
+}
+
 func TestSuccessfulStatusFromCreateResponse(t *testing.T) {
 	srv := Server{}
 	s, err := srv.StatusFromCreateResponse([]byte(fakeapi.ServerCreationSuccessfulResponse))

@@ -1,0 +1,11 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker pull centurylink/golang-tester:latest
+
+test:
+  override:
+    - docker run -v $(pwd):/src centurylink/golang-tester

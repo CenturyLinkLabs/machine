@@ -110,7 +110,9 @@ func (s Server) URL(a string) (string, error) {
 
 func (s *Server) RequestForSave(a string) (request, error) {
 	url := fmt.Sprintf(serverCreationURL, a)
-	s.NetworkID = s.DeployableNetwork.NetworkID
+	if s.NetworkID == "" {
+		s.NetworkID = s.DeployableNetwork.NetworkID
+	}
 	return request{URL: url, Parameters: *s}, nil
 }
 
