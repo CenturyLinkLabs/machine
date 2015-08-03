@@ -38,8 +38,7 @@ func TestSuccessfulUnauthenticatedPostJSON(t *testing.T) {
 	response, err := r.PostJSON("", req)
 	assert.NoError(t, err)
 
-	responseString := string(response)
-	assert.Equal(t, "Response Text", responseString)
+	assert.EqualValues(t, "Response Text", response)
 }
 
 func TestSuccessfulAuthenticatedPostJSON(t *testing.T) {
@@ -57,9 +56,9 @@ func TestSuccessfulAuthenticatedPostJSON(t *testing.T) {
 
 func TestSuccessfulPassingArrayToPostJSON(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		s, err := ioutil.ReadAll(r.Body)
+		b, err := ioutil.ReadAll(r.Body)
 		assert.NoError(t, err)
-		assert.Equal(t, `["first","second"]`, s)
+		assert.EqualValues(t, `["first","second"]`, b)
 
 		fmt.Fprintf(w, "Response Text")
 	}))
@@ -142,7 +141,7 @@ func TestSuccessfulGetJSON(t *testing.T) {
 	r := &clcRequestor{}
 	response, err := r.GetJSON("token", request{URL: ts.URL})
 	assert.NoError(t, err)
-	assert.Equal(t, "Response Text", string(response))
+	assert.EqualValues(t, "Response Text", response)
 }
 
 func TestUnauthorizedGetJSON(t *testing.T) {
@@ -194,7 +193,7 @@ func TestSuccessfulDeleteJSON(t *testing.T) {
 	res, err := r.DeleteJSON("token", req)
 
 	assert.NoError(t, err)
-	assert.Equal(t, "Response Text", string(res))
+	assert.EqualValues(t, "Response Text", res)
 }
 
 func TestUnauthorizedDeleteJSON(t *testing.T) {
