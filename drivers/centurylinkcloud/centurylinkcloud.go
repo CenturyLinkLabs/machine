@@ -3,7 +3,6 @@ package centurylinkcloud
 import (
 	"errors"
 	"fmt"
-	"path/filepath"
 	"time"
 
 	"github.com/CenturyLinkLabs/clcgo"
@@ -15,10 +14,7 @@ import (
 const statusWaitSeconds = 10
 
 type Driver struct {
-	MachineName        string
-	CaCertPath         string
-	PrivateKeyPath     string
-	storePath          string
+	*drivers.BaseDriver
 	BearerToken        string
 	AccountAlias       string
 	ServerID           string
@@ -40,35 +36,12 @@ func init() {
 }
 
 func NewDriver(machineName string, storePath string, caCert string, privateKey string) (drivers.Driver, error) {
-	return &Driver{MachineName: machineName, storePath: storePath, CaCertPath: caCert, PrivateKeyPath: privateKey}, nil
-}
-
-func (d *Driver) AuthorizePort(ports []*drivers.Port) error {
-	return nil
-}
-
-func (d *Driver) DeauthorizePort(ports []*drivers.Port) error {
-	return nil
-}
-
-func (d *Driver) GetMachineName() string {
-	return d.MachineName
+	inner := drivers.NewBaseDriver(machineName, storePath, caCert, privateKey)
+	return &Driver{BaseDriver: inner}, nil
 }
 
 func (d *Driver) GetSSHHostname() (string, error) {
 	return d.GetIP()
-}
-
-func (d *Driver) GetSSHKeyPath() string {
-	return filepath.Join(d.storePath, "id_rsa")
-}
-
-func (d *Driver) GetSSHPort() (int, error) {
-	return 22, nil
-}
-
-func (d *Driver) GetSSHUsername() string {
-	return "root"
 }
 
 func (d *Driver) DriverName() string {
