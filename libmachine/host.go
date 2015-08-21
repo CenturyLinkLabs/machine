@@ -27,7 +27,7 @@ var (
 	validHostNameChars                = `[a-zA-Z0-9\-\.]`
 	validHostNamePattern              = regexp.MustCompile(`^` + validHostNameChars + `+$`)
 	errMachineMustBeRunningForUpgrade = errors.New("Error: machine must be running to upgrade.")
-	stateTimeoutDuration              = time.Second * 3
+	stateTimeoutDuration              = time.Second * 30
 )
 
 type Host struct {
