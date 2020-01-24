@@ -44,6 +44,10 @@ dev                virtualbox     Running   tcp://192.168.99.127:2376
 staging   *        digitalocean   Running   tcp://104.236.253.181:2376
 ```
 
+## NOTE
+
+This repo is no longer being maintained. Users are welcome to fork it, but we make no warranty of its functionality.
+
 ## Installation and documentation
 
 Full documentation [is available here](https://docs.docker.com/machine/).
